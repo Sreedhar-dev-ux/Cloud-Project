@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>log in to Memory Lane</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #88bef4;
+        font-family: "Arial", sans-serif;
+        color: #e0e0e0;
+      }
+
+      .login-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        padding: 30px;
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+      }
+
+      .logo img {
+        max-width: 80%;
+        max-height: 100%;
+      }
+
+      .login-form h2 {
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        color: #222;
+      }
+
+      .error-msg {
+        color: red;
+        margin-bottom: 15px;
+        font-size: 1rem;
+      }
+
+      label {
+        display: block;
+        color: #555;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+
+      .login-button input {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        background-color: #6441a4;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .login-button input:hover {
+        background-color: #4b367c;
+      }
+
+      p {
+        text-align: center;
+        margin: 0;
+      }
+
+      a {
+        color: #6441a4;
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: #4b367c;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="logo">
+        <img src="{% static 'images/ml-logo.png' %}" alt="Memory Lane Logo" />
+      </div>
+      <div class="login-form">
+        <h2>Log IN</h2>
+        {% if message %}
+        <p class="error-msg">{{ message }}</p>
+        {% endif %}
+        <form action="/login/" method="post">
+          <label for="email">Username or email Address</label><br />
+          <input type="email" id="email" name="email" required /><br />
+          <label for="password">Password</label><br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+          /><br /><br />
+          <div class="login-button">
+            <input type="submit" value="Log In" />
+          </div>
+        </form>
+        <p>New here? <a href="/signup">Sign Up</a></p>
+      </div>
+    </div>
+  </body>
+</html>

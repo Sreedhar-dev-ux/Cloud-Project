@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+db.sqlite3
+*.idea
+*.vscode
+*.DS_Store
+.env
+service-account.json
+cloudbuild.yaml

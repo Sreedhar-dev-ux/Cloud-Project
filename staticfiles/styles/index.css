@@ -1,0 +1,62 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #88bef4;
+  color: #e0e0e0;
+}
+
+h1,
+h2 {
+  color: #9147ff;
+}
+
+a {
+  color: #9147ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #9147ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #772ce8;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.upload-form,
+.image-wrapper {
+  width: 45%;
+}
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.image-list-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.image-data {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

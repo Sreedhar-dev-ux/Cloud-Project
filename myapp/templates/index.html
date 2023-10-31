@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% csrf_token %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Lane</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #88bef4;
+        color: #e0e0e0;
+      }
+
+      h1,
+      h2 {
+        color: #9147ff;
+      }
+
+      a {
+        color: #9147ff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      button {
+        background-color: #9147ff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      button:hover {
+        background-color: #772ce8;
+      }
+
+      .main-wrapper {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+      }
+
+      .upload-form,
+      .image-wrapper {
+        width: 45%;
+      }
+
+      .thumbnail {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      .image-list-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .image-data {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header
+      style="
+        padding: 15px;
+        border-bottom: 1px solid #333;
+        display: flex;
+        justify-content: space-between;
+      "
+    >
+      <h1>Memory Lane</h1>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Sign Out</button>
+      </form>
+    </header>
+
+    <main class="content-container">
+      <section class="file-upload-area">
+        <h2>Add Your Pictures</h2>
+        <form
+          action="{% url 'upload_files' %}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %}
+          <input type="file" name="images" multiple />
+          <br /><br />
+          <button
+            style="
+              padding: 10px;
+              border-radius: 5px;
+              background-color: #9147ff;
+              color: #fff;
+              border: none;
+              cursor: pointer;
+            "
+          >
+            Upload Images
+          </button>
+        </form>
+      </section>
+
+      <section class="image-display">
+        <h2>Your Gallery</h2>
+        <div class="image-list">
+          {% if images %}
+          <ul style="padding: 0; list-style: none">
+            {% for image in images %}
+            <li style="width: 200px">
+              <div>
+                <a href="{{ image.url }}"
+                  ><img src="{{ image.url }}" alt="image" style="width: 100%"
+                /></a>
+              </div>
+              <div>
+                <div>{{ image.name }}</div>
+                <div style="display: flex; justify-content: space-between">
+                  <a href="{{ image.url }}" download>Get Image</a>
+                  <span> [{{ image.image_size }}] </span>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p>No uploaded images yet.</p>
+          {% endif %}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
