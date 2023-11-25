@@ -11,8 +11,17 @@ app = Flask(__name__)
 JWT_SECRET_KEY = config('JWT_SECRET_KEY')
 BUCKET_NAME = config('BUCKET_NAME')
 
-client = datastore.Client()
-bucket = storage.Client().bucket(BUCKET_NAME)
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get('GOOGLE_APPLICATION')
+with open('google-credentials.json', 'w') as outfile:
+    outfile.write(GOOGLE_APPLICATION_CREDENTIALS)
+
+bucket = storage.Client.from_service_account_json(
+    'google-credentials.json')
+client = datastore.Client.from_service_account_json(
+    'google-credentials.json')
+
+# client = datastore.Client()
+# bucket = storage.Client().bucket(BUCKET_NAME)
 
 
 def allowed_file(filename):
@@ -158,11 +167,13 @@ def upload_files():
     else:
         return render_template('index.html')
 
+
 def generate_signed_url(object_name):
     blob = bucket.blob(object_name)
     signed_url = blob.generate_signed_url(
         expiration=timedelta(minutes=30))
     return signed_url
+
 
 @app.route('/bucket/<image_id>')
 def serve_image(image_id):
