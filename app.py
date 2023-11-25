@@ -15,8 +15,8 @@ GOOGLE_APPLICATION_CREDENTIALS = os.environ.get('GOOGLE_APPLICATION')
 with open('google-credentials.json', 'w') as outfile:
     outfile.write(GOOGLE_APPLICATION_CREDENTIALS)
 
-bucket = storage.Client.from_service_account_json(
-    'google-credentials.json').bucket(BUCKET_NAME)
+storage_client = storage.Client.from_service_account_json(
+    'google-credentials.json')
 client = datastore.Client.from_service_account_json(
     'google-credentials.json')
 
@@ -142,6 +142,7 @@ def upload_files():
                 new_filename = new_filename + '.' + file_extension
                 storage_filename = f"{hash_filename}.{file_extension}"
 
+                bucket = storage_client.bucket(BUCKET_NAME)
                 blob = bucket.blob(storage_filename)
                 blob.upload_from_string(
                     file.read(), content_type=file.content_type)
@@ -169,6 +170,7 @@ def upload_files():
 
 
 def generate_signed_url(object_name):
+    bucket = storage_client.bucket(BUCKET_NAME)
     blob = bucket.blob(object_name)
     signed_url = blob.generate_signed_url(
         expiration=timedelta(minutes=30))
@@ -214,6 +216,7 @@ def delete_image(filename):
             return redirect('/login')
 
         # Delete image from bucket
+        bucket = storage_client.bucket(BUCKET_NAME)
         blob = bucket.blob(filename)
         blob.delete()
 
