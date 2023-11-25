@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internal Server Error</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        .cursive-font {
+            font-family: 'Dancing Script', cursive;
+        }
+    </style>
+</head>
+
+<body class="bg-red-600 text-white text-center">
+    <h1 class="text-4xl font-bold mt-10 cursive-font">Internal Server Error</h1>
+    <!-- <img src="error-image.jpg" alt="Error Image" class="mx-auto mt-10" /> -->
+    <p class="text-xl mt-5">Oops! Something went wrong.</p>
+    <a href="{{ url_for('index') }}"
+        class="inline-block mt-5 bg-white text-red-600 py-2 px-4 rounded hover:bg-red-500 hover:text-white transition-colors">Go
+        back to the homepage</a>
+</body>
+
+</html>

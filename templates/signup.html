@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Start your trip down Memory Lane</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-800 flex justify-center items-center h-screen">
+  <div class="signup-container bg-white rounded-lg shadow-lg p-8 w-full max-w-xs">
+    <div class="logo mb-6">
+      <img src="{{ url_for('static', filename='images/ml-logo.png') }}" alt="Memory Lane Logo"
+        class="max-w-full h-auto" />
+    </div>
+    <div class="signup-form">
+      <h2 class="text-2xl text-gray-800 font-bold mb-4">Across the Memory Lane</h2>
+      {% if message %}
+      <p class="error-msg text-red-600">{{ message }}</p>
+      {% endif %}
+      <form action="{{url_for('signup')}}" method="post" class="space-y-4">
+        <div>
+          <label for="email" class="text-gray-600">Username or email Address</label>
+          <input type="email" id="email" name="email" required class="w-full mt-1 p-2 border border-gray-300 rounded" />
+        </div>
+        <div>
+          <label for="password" class="text-gray-600">Password</label>
+          <input type="password" id="password" name="password" required
+            class="w-full mt-1 p-2 border border-gray-300 rounded" />
+        </div>
+        <div class="signup-button">
+          <input type="submit" value="Sign Up"
+            class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer transition-colors" />
+        </div>
+      </form>
+      <p class="text-center text-gray-300 mt-4">Already have an account? <a href="{{url_for('login')}}"
+          class="text-blue-400 hover:text-blue-600">Log In</a></p>
+    </div>
+  </div>
+</body>
+
+</html>
