@@ -105,7 +105,7 @@ def index():
             if 'display_name' not in image:
                 image['display_name'] = image['filename']
 
-        image_urls = [{"url": image['url'], "name": image["filename"], 'display_name': image['display_name'], "image_type": image["image_type"], 'image_size': image['image_size']}
+        image_urls = [{"url": f'/download/{image["url"]}', "name": image["filename"], 'display_name': image['display_name'], "image_type": image["image_type"], 'image_size': image['image_size']}
                       for image in images]
         return render_template('index.html', images=image_urls)
 
@@ -179,8 +179,10 @@ def generate_signed_url(object_name):
 
 @app.route('/bucket/<image_id>')
 def serve_image(image_id):
-    signed_url = generate_signed_url(image_id)
-    return redirect(signed_url)
+    bucket = storage_client.bucket(BUCKET_NAME)
+    blob = bucket.blob(image_id)
+    image_data = blob.download_as_bytes()
+    return make_response(image_data)
 
 
 @app.route('/image/<filename>')
@@ -192,7 +194,8 @@ def get_image(filename):
 
 @app.route('/download/<filename>')
 def download_image(filename):
-    blob = storage.Blob(filename, bucket)
+    bucket = storage_client.bucket(BUCKET_NAME)
+    blob = bucket.blob(filename)
     image_data = blob.download_as_bytes()
     return make_response(image_data)
 
