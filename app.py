@@ -105,7 +105,7 @@ def index():
             if 'display_name' not in image:
                 image['display_name'] = image['filename']
 
-        image_urls = [{"url": f'/download/{image["url"]}', "name": image["filename"], 'display_name': image['display_name'], "image_type": image["image_type"], 'image_size': image['image_size']}
+        image_urls = [{"url": image["url"], "name": image["filename"], 'display_name': image['display_name'], "image_type": image["image_type"], 'image_size': image['image_size']}
                       for image in images]
         return render_template('index.html', images=image_urls)
 
